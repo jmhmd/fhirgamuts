@@ -9,9 +9,7 @@ exports.getGamut = function(req, res){
 
 	an.getAnnotations(req.body.text, function(err, result) {
 		
-		for(var i = 0; i < result.length; i ++) {
-			foundTerms.push(result[i].term)
-		}
+		console.log(result)
 
 		for(var i = 0; i < foundTerms.length; i++) {
 			request('https://api.gamuts.net/json/search/?q=' + foundTerms[i], function(error, result, body) {
@@ -19,10 +17,6 @@ exports.getGamut = function(req, res){
 			})
 		}
 	})
-
-	/*request('https://api.gamuts.net/json/details/1000', function(error, result, body) {
-		res.send(body)
-	})*/
 }
 
 exports.getTerms = function(req, res){
