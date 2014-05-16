@@ -15,8 +15,13 @@
 <body>
 	<div class="wrapper">
 
-	<div class="col-md-4">
-		<textarea cols='60' rows="10" id="inputText"></textarea>
+	<div class="col-md-6">
+		<button class="btn find-reports">Find Radiology Reports</button>
+		<div>
+			<ul id="patient-list"></ul>
+		</div>
+		<textarea cols='80' rows="10" id="input-text"></textarea>
+
 			<div>
 				<button class="btn btn-default" onclick="getDiagnosis()">Diagnosis</button>
 			</div>
@@ -26,10 +31,6 @@
 			<div id="output"></div>
 		</div>
 
-	</div>
-		
-	<div class="col-md-4">
-		<ul id="patient-list"></ul>
 	</div>
 
 </body>

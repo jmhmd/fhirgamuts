@@ -1,23 +1,42 @@
-"use strict"
+"use strict";
 
 $(document).ready(function() {
 
-	// $.get('http://fhir.hackathon.siim.org/fhir/Patient?_format=application/json', function(result){
-	$.get('http://fhir.hackathon.siim.org/fhir/DiagnosticReport?service=RAD&_format=application/json', function(result) {
+	$('.find-reports').on('click', function(){
+		getReports()
+	})
 
-		var listContainer = $('#patient-list')
+	$('body').on('click', '.populate-textarea', function(e){
 
-		_.each(result.entry, function(entry) {
+		e.preventDefault()
 
-			var id = entry.content.subject.reference,
-				reportTextDiv = entry.content.text.div
+		var reportText = $(e.target).parent().data('report')
+
+		$('#input-text').val(reportText)
+	})
+
+	function getReports(){
+		// $.get('http://fhir.hackathon.siim.org/fhir/Patient?_format=application/json', function(result){
+		$.get('http://fhir.hackathon.siim.org/fhir/DiagnosticReport?service=RAD&_format=application/json', function(result) {
+
+			var listContainer = $('#patient-list')
+
+			_.each(result.entry, function(entry) {
+
+				var id = entry.content.subject.reference,
+					reportText = $(entry.content.text.div).text()
 
 				$.get('http://fhir.hackathon.siim.org/fhir/' + id + '?_format=application/json', function(result) {
 
 					var name = result.name[0].family + ', ' + result.name[0].given
 
-					listContainer.append('<li>' + name + ': ' + reportTextDiv + '</li>')
+					var listel = $('<li><a href="#" class="populate-textarea" id="'+result.identifier[0].value+'">' + name + '</a></li>')
+
+					listel
+						.data('report', reportText)
+						.appendTo(listContainer)
 				})
+			})
 		})
-	})
+	}
 })
