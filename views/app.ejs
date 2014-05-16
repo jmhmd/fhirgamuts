@@ -5,8 +5,9 @@
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 
-	<script type="text/javascript" src="/gamuts.js"></script>
 	<script type="text/javascript" src="/javascripts/fhir.js"></script>
+	<script type="text/javascript" src="/gamuts.js"></script>
+
 
 <head>	
 </head>
@@ -14,25 +15,25 @@
 <body>
 	<div class="wrapper">
 
-	<div class="col-md-6">
-		<textarea cols='80' rows="10"></textarea>
+	<div class="col-md-4">
+		<textarea cols='60' rows="10" id="inputText"></textarea>
 			<div>
-				<button class="btn btn-default" ng-click="getTemplate()">Diagnosis</button>
+				<button class="btn btn-default" onclick="getDiagnosis()">Diagnosis</button>
 			</div>
 		</div>
 
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<div id="output"></div>
 		</div>
 
 	</div>
 		
-	<div>
-		<ul id="patient-list">
-				
-	</ul>
+	<div class="col-md-4">
+		<ul id="patient-list"></ul>
 	</div>
 
 </body>
 
 </html>
+
+
