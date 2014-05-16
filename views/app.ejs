@@ -15,7 +15,11 @@
 	<div class="wrapper">
 
 	<div class="col-md-6">
-		<textarea cols='80' rows="10"></textarea>
+		<button class="btn find-reports">Find Radiology Reports</button>
+		<div>
+			<ul id="patient-list"></ul>
+		</div>
+		<textarea cols='80' rows="10" id="input-text"></textarea>
 			<div>
 				<button class="btn btn-default" ng-click="getTemplate()">Diagnosis</button>
 			</div>
@@ -25,12 +29,6 @@
 			<div id="output"></div>
 		</div>
 
-	</div>
-		
-	<div>
-		<ul id="patient-list">
-				
-	</ul>
 	</div>
 
 </body>
