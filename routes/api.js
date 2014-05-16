@@ -5,11 +5,16 @@ var request = require('request'),
 
 exports.getGamut = function(req, res){
 
-	an.getAnnotations(req.body.text)
+	var foundTerms = []
 
-	console.log("Length: " + req.body.text.length)
+	an.getAnnotations(req.body.text, function(err, result) {
+		
+		for(var i = 0; i < result.length; i ++) {
+			foundTerms.push(result[i].term)
+		}
 
-	res.send(req.body.text)
+		res.send(foundTerms)
+	})
 
 	/*request('https://api.gamuts.net/json/details/1000', function(error, result, body) {
 		res.send(body)

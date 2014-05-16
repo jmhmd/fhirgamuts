@@ -13,7 +13,8 @@ function getDiagnosis() {
 
 	$.post('/api/getGamut', textInput).then(function(result) {
 
-		output.innerHTML = result
+		console.log(result)
+		output.innerHTML = JSON.stringify(result)
 	})
 
 }

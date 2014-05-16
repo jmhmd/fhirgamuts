@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 		var reportText = $(e.target).parent().data('report')
 
-		$('#input-text').val(reportText)
+		$('#inputText').val(reportText)
 	})
 
 	function getReports(){
