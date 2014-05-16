@@ -17,7 +17,6 @@ getAnnotations = function (text, cb) {
 
 	params.text = text
 
-	console.log('querying api...')
 	request.post(annotatorUrl, {form: params}, function(err, res, body){
 
 		body = JSON.parse(body)
