@@ -11,6 +11,10 @@ $(document).ready(function() {
  		 e.preventDefault()
   		$(this).tab('show')
 	})
+
+	$('#inputTextarea').on('input properychange', function(){
+		$('.submitReport').removeClass('disabled')
+	})
 })
 
 function getDiagnosisText() {
@@ -20,7 +24,7 @@ function getDiagnosisText() {
 
 	console.log(textInput.text)
 
-	getDiagnosis(textInput)
+	getDiagnosis(textInput, 'text')
 }
 
 function getDiagnosisFHIR() {
@@ -28,12 +32,14 @@ function getDiagnosisFHIR() {
 
 	textInput.text = $('.inputText').html()
 
-	getDiagnosis(textInput)
+	getDiagnosis(textInput, 'html')
 }
 
-function getDiagnosis(textInput) {
+function getDiagnosis(textInput, format) {
 	
-	$('.submitReport').addClass('disabled')
+	if (format === 'html'){
+		$('.submitReport').addClass('disabled')
+	}
 
 	$.post('/api/getGamut', textInput).then(function(result) {
 		var buildOutput = '', number = 1
@@ -47,6 +53,12 @@ function getDiagnosis(textInput) {
 
 		$('#output').html(buildOutput)
 
-		$('.inputText').html(result.hilitedText.replace(/\n/g, ' <br> '))
+		switch (format){
+			case 'text':
+				$('.inputText').html(result.hilitedText.replace(/\n/g, ' <br> '))
+				break
+			case 'html':
+				$('.inputText').html(result.hilitedText)
+		}
 	})
 }
