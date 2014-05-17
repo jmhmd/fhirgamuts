@@ -2,9 +2,9 @@
 
 var request = require('request'),
 	an = require('../annotator'),
+	hilite = require('../hilite'),
 	async = require('async'),
-	_ = require('lodash'),
-	fs = require('fs')
+	_ = require('lodash')
 
 exports.getGamut = function(req, res, next) {
 
@@ -17,6 +17,22 @@ exports.getGamut = function(req, res, next) {
 	 */
 	an.getAnnotations(req.body.text, function(err, result) {
 
+		/*
+		result looks like:
+		[ { term: 'HEAD', from: 52, to: 55 },
+		  { term: 'NECK', from: 57, to: 60 },
+		  { term: 'DIAGNOSTIC', from: 216, to: 225 },
+		  { term: 'TUMOR', from: 286, to: 290 },
+		  { term: 'HYDROCEPHALUS', from: 317, to: 329 },
+		  { term: 'MALIGNANT', from: 357, to: 365 },
+		  { term: 'DUCT', from: 393, to: 396 } ]
+		 */
+
+		var newText = hilite.hiliteTerms(result, req.body.text)
+
+		// console.log('terms: ', result)
+		// console.log('markup: ', newText)
+
 		for (var i = 0; i < result.length; i++) {
 			radlexTerms.push(result[i].term)
 		}
@@ -26,7 +42,7 @@ exports.getGamut = function(req, res, next) {
 		 */
 		function gamutSearch(text, callback) {
 
-			console.log(text)
+			// console.log(text)
 
 			request.get({url: 'https://api.gamuts.net/json/search/?q=' + text, json:true}, function(error, result, body) {
 
@@ -34,10 +50,11 @@ exports.getGamut = function(req, res, next) {
 					callback(error)
 				}
 
-				console.log('body: ', body)
+				// console.log('body: ', body)
 
 				var urls = _.map(body.response.entity, function(entity) { return entity.url })
-				console.log(body.response.entity)
+				
+				// console.log(body.response.entity)
 
 				gamutTerms = gamutTerms.concat(urls)
 
@@ -51,8 +68,7 @@ exports.getGamut = function(req, res, next) {
 				console.log(err)
 			}
 
-			console.log('gamut terms: ', gamutTerms)
-
+			// console.log('gamut terms: ', gamutTerms)
 
 			/*
 			Take each found gamut term and get details, including "causes"
@@ -82,7 +98,7 @@ exports.getGamut = function(req, res, next) {
 			async.each(gamutTerms, gamutDetails, function(err){
 				if (err){ next(err) }
 
-				console.log(causes)
+				// console.log(causes)
 
 				res.send(causes)
 			})
