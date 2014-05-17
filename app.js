@@ -34,7 +34,7 @@ app.get('/', routes.index);
 app.post('/api/getGamut', api.getGamut)
 app.post('/api/getTerms', api.getTerms)
 
-console.log('PORT: ', process.env.PORT)
+// console.log('PORT: ', process.env.PORT)
 
 app.listen(process.env.PORT || 5050, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

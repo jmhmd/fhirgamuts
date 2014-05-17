@@ -24,22 +24,37 @@ $(document).ready(function() {
 
 			listContainer.empty()
 			
-			_.each(result.entry, function(entry) {
+			_.each(result.entry, function(entry, i) {
 
-				var id = entry.content.subject.reference,
+				var id, name, listel, patientIdentifier,
 					reportText = $(entry.content.text.div).html()
 
-				$.get('http://fhir.hackathon.siim.org/fhir/' + id + '?_format=application/json', function(result) {
+				if (entry.content && entry.content.subject && entry.content.subject.reference){
+					
+					id = entry.content.subject.reference
+					
+					$.get('http://fhir.hackathon.siim.org/fhir/' + id + '?_format=application/json', function(result) {
 
-					var name = result.name[0].family + ', ' + result.name[0].given
+						name = result.name[0].family + ', ' + result.name[0].given
+						patientIdentifier = result.identifier[0].value
 
-					var listel = $('<li><a href="#" class="populate-textarea" id="'+result.identifier[0].value+'">' + name + '</a></li>')
+						addItem(name, patientIdentifier)
+					})
+				} else {
+					name = "No name defined"
+					patientIdentifier = "undefined_" + i
 
+					addItem(name, patientIdentifier)
+				}
+				
+				function addItem(name, patientIdentifier){
+					
+					listel = $('<li><a href="#" class="populate-textarea" id="'+patientIdentifier+'">' + name + '</a></li>')
 
 					listel
 						.data('report', reportText)
 						.appendTo(listContainer)
-				})
+				}
 			})
 		})
 	}
