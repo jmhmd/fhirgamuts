@@ -2,10 +2,15 @@
 
 $(document).ready(function() {
 
-	var defaultText = 'Melanoma is a malignant tumor of melanocytes which are found predominantly in skin but also in the bowel and the eye'
-	
-	$('#inputText').html(defaultText)
+	$('#Text').click(function (e) {
+ 		 e.preventDefault()
+  		$(this).tab('show')
+	})
 
+	$('#FHIR').click(function (e) {
+ 		 e.preventDefault()
+  		$(this).tab('show')
+	})
 })
 
 function getDiagnosis() {
