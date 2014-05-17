@@ -52,6 +52,7 @@ exports.getGamut = function(req, res, next) {
 				gamutTerms.concat(urls)
 
 				callback()
+
 			})
 		}
 
@@ -101,13 +102,7 @@ exports.getGamut = function(req, res, next) {
 
 	})
 
-
 	/*request('https://api.gamuts.net/json/details/1000', function(error, result, body) {
 		res.send(body)
 	})*/
-}
-
-exports.getTerms = function(req, res) {
-
-
 }
