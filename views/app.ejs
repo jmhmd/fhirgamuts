@@ -14,20 +14,32 @@
 
 <body>
 	<div class="wrapper">
+		<nav class="navbar navbar-default navbar-static-top" role="navigation">
+			<a class="navbar-brand" href="#">Diagnosis Please...</a>
+			<p class="pull-right navbar-text">
+			<a href="https://github.com/jmhmd/fhirgamuts/issues" class="navbar-link" target="_blank">
+				<span class="glyphicon glyphicon-question-sign"></span> Report a bug, ask a question, suggest a feature
+			</a>
+		</p>
+		</nav>
 
-	<div class="col-md-6">
-		<button class="btn find-reports">Find Radiology Reports</button>
-		<div>
-			<ul id="patient-list"></ul>
-		</div>
-		<textarea cols='80' rows="10" id="inputText"></textarea>
-
-			<div>
-				<button class="btn btn-default" onclick="getDiagnosis()">Diagnosis</button>
+		<div class="col-md-2">
+			<button class="btn find-reports">Find Radiology Reports</button>
+			<div class="well well-sm">
+				<ul id="patient-list"></ul>
 			</div>
 		</div>
-
+		<div class="col-md-6">
+			<label>Report Text</label>
+			<div class="form-group">
+				<div id="inputText"></div>
+					<div>
+						<button class="btn" onclick="getDiagnosis()">Diagnosis</button>
+					</div>
+			</div>
+		</div>
 		<div class="col-md-4">
+			<label>Gamut Relations</label>
 			<div id="output"></div>
 		</div>
 

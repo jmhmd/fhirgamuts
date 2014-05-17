@@ -23,7 +23,14 @@ getAnnotations = function (text, cb) {
 
 		body.forEach(function(match){
 
-			result.push(match.annotations[0].text)
+			var term = {},
+				an = match.annotations[0]
+
+			term.term = an.text
+			term.from = an.from
+			term.to = an.to
+				
+			result.push(term)
 		})
 
 		if (typeof cb === 'function'){

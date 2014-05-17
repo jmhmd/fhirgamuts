@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 		var reportText = $(e.target).parent().data('report')
 
-		$('#inputText').val(reportText)
+		$('#inputText').html(reportText)
 	})
 
 	function getReports(){
@@ -24,7 +24,7 @@ $(document).ready(function() {
 			_.each(result.entry, function(entry) {
 
 				var id = entry.content.subject.reference,
-					reportText = $(entry.content.text.div).text()
+					reportText = $(entry.content.text.div).html()
 
 				$.get('http://fhir.hackathon.siim.org/fhir/' + id + '?_format=application/json', function(result) {
 
