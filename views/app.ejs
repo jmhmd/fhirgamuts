@@ -34,32 +34,35 @@
 						<div class="form-group">
 							<textarea class="form-control" style="height:400px;" id="inputTextarea"></textarea>
 						</div>
+					</div>
+					<div class="col-md-6">
+						<label>Report Text</label>
+						<div class="well well-lg">
+							<div class="inputText"></div>
+						</div>
 						<div class="form-group">
 							<button class="btn submitReport" onclick="getDiagnosisText()">Diagnosis</button>
 						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="inputText"></div>
 					</div>
 				</div>
 			</div>
 			<div class="tab-pane active" id="FHIR">
 				<div class="row">
-					<div class="col-md-4">
-						<div class="well well-sm">
+					<div class="col-md-5">
+						<div class="well well-lg">
 							<ul id="patient-list"></ul>
 						</div>
 						<div>
 							<button class="btn find-reports">Load Radiology Reports from FHIR</button>
 						</div>
 					</div>
-					<div class="col-md-6 col-md-offset-2">
+					<div class="col-md-6 col-md-offset-1">
 						<label>Report Text</label>
-						<div class="form-group">
+						<div class="well well-lg">
 							<div class="inputText"></div>
-							<div>
-								<button class="btn submitReport" onclick="getDiagnosisFHIR()">Diagnosis</button>
-							</div>
+						</div>
+						<div>
+							<button class="btn submitReport" onclick="getDiagnosisFHIR()">Diagnosis</button>
 						</div>
 					</div>
 				</div>

@@ -78,7 +78,7 @@ exports.getGamut = function(req, res, next) {
 					if(body.response.entity.relations != null && body.response.entity.relations.may_be_caused_by != null) {
 
 						_.forEach(body.response.entity.relations.may_be_caused_by, function(cause) {
-							if(cause.frequency === 'common' || cause.frequency === 'uncommon') {
+							if(cause.frequency === 'common') {//} || cause.frequency === 'uncommon') {
 								causes.push(cause.name)
 							}
 						})

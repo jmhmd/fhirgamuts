@@ -36,11 +36,12 @@ function getDiagnosis(textInput) {
 	$('.submitReport').addClass('disabled')
 
 	$.post('/api/getGamut', textInput).then(function(result) {
-		var buildOutput = ''
+		var buildOutput = '', number = 1
 
 		buildOutput = "<table>"
 		_.forEach(result.causes, function(term) {
-			buildOutput += "<tr> <td>" + term.name + "</td> <td>" + term.freq + "</tf> </tr>"
+			buildOutput += "<tr> <td>" + number + ". </td> <td>" + term.name + "</td> <td>" + term.freq + "</tf> </tr>"
+			number++
 		})
 		buildOutput += "</table>"
 
