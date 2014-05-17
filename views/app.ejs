@@ -22,44 +22,49 @@
 		</a>
 	</p>
 	</nav>
-		<div class="col-md-8">			
-			<ul class="nav nav-tabs">
-			  <li class="active"><a href="#FHIR" data-toggle="tab">FHIR</a></li>
-			  <li><a href="#Text" data-toggle="tab">Text</a></li>
-			</ul>
-			<div class="tab-content">
-				<div class="tab-pane" id="Text">
-					<form>
+	<div class="col-md-8">			
+		<ul class="nav nav-tabs">
+		  <li class="active"><a href="#FHIR" data-toggle="tab">FHIR</a></li>
+		  <li><a href="#Text" data-toggle="tab">Text</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane" id="Text">
+				<div class="row">
+					<div class="col-md-6">
 						<div class="form-group">
 							<textarea ng-model="textToAnnotate" class="form-control" style="height:400px;"></textarea>
 						</div>
 						<div class="form-group">
 							<button class="btn" ng-click="annotateText()">Diagnosis</button>
 						</div>
-					</form>
+					</div>
+					<div class="col-md-6">
+						<div class="inputText"></div>
+					</div>
 				</div>
-				<div class="tab-pane active" id="FHIR">
-					<div class="row">
+			</div>
+			<div class="tab-pane active" id="FHIR">
+				<div class="row">
 					<div class="col-md-4">
 						<div class="well well-sm">
 							<ul id="patient-list"></ul>
 						</div>
-						<form>
+						<div>
 							<button class="btn find-reports">Find Radiology Reports</button>
-						</form>
+						</div>
 					</div>
 					<div class="col-md-8">
 						<label>Report Text</label>
 						<div class="form-group">
-							<div id="inputText"></div>
+							<div class="inputText"></div>
 							<div>
 								<button class="btn" id="submitReport" onclick="getDiagnosis()">Diagnosis</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				</div>
 			</div>
+		</div>
 	</div>
 
 	<div class="col-md-4">
