@@ -10,13 +10,14 @@ $(document).ready(function() {
 
 		e.preventDefault()
 
+		$('#submitReport').removeClass('disabled')
+
 		var reportText = $(e.target).parent().data('report')
 
 		$('#inputText').html(reportText)
 	})
 
 	function getReports(){
-		// $.get('http://fhir.hackathon.siim.org/fhir/Patient?_format=application/json', function(result){
 		$.get('http://fhir.hackathon.siim.org/fhir/DiagnosticReport?service=RAD&_format=application/json', function(result) {
 
 			var listContainer = $('#patient-list')
