@@ -18,6 +18,8 @@ function getDiagnosisText() {
 
 	textInput.text = $('#inputTextarea').val()
 
+	console.log(textInput.text)
+
 	getDiagnosis(textInput)
 }
 
@@ -44,6 +46,6 @@ function getDiagnosis(textInput) {
 
 		$('#output').html(buildOutput)
 
-		$('.inputText').html(result.hilitedText)
+		$('.inputText').html(result.hilitedText.replace(/\n/g, ' <br> '))
 	})
 }
