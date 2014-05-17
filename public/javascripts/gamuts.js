@@ -2,6 +2,8 @@
 
 $(document).ready(function() {
 
+	$('#explain').modal({show: true})
+
 	$('#Text').click(function (e) {
  		 e.preventDefault()
   		$(this).tab('show')
@@ -11,6 +13,10 @@ $(document).ready(function() {
  		 e.preventDefault()
   		$(this).tab('show')
 	})
+
+	var defaultText = 'Impression: \n 1. Splenomegaly \n 2. Portal hypertension \n 3. Hepatomegaly \n 4. Esophageal varices'
+
+	$('#inputTextarea').val(defaultText)
 
 	$('#inputTextarea').on('input properychange', function(){
 		$('.submitReport').removeClass('disabled')
