@@ -26,18 +26,13 @@ exports.getGamut = function(req, res, next) {
 		 */
 		function gamutSearch(text, callback) {
 
-			console.log(text)
-
 			request.get({url: 'https://api.gamuts.net/json/search/?q=' + text, json:true}, function(error, result, body) {
 
 				if (error) {
 					callback(error)
 				}
 
-				console.log('body: ', body)
-
 				var urls = _.map(body.response.entity, function(entity) { return entity.url })
-				console.log(body.response.entity)
 
 				gamutTerms = gamutTerms.concat(urls)
 
@@ -50,9 +45,6 @@ exports.getGamut = function(req, res, next) {
 			if (err) {
 				console.log(err)
 			}
-
-			console.log('gamut terms: ', gamutTerms)
-
 
 			/*
 			Take each found gamut term and get details, including "causes"
@@ -68,12 +60,14 @@ exports.getGamut = function(req, res, next) {
 						callback(error)
 					}
 
-					console.log('entity: ', body.response.entity)
-					var c = _.filter(_.map(body.response.entity.relations.causes, function(cause) {
-							return cause.frequency === 'common' ? cause.name : false
-						}))
+					if(body.response.entity.relations != null && body.response.entity.relations.may_be_caused_by != null) {
 
-					causes.concat(c)
+						_.forEach(body.response.entity.relations.may_be_caused_by, function(cause) {
+							if(cause.frequency === 'common') {
+								causes.push(cause.name)
+							}
+						})
+					}
 
 					callback()
 				})
@@ -89,10 +83,5 @@ exports.getGamut = function(req, res, next) {
 
 		})
 
-
 	})
-
-	/*request('https://api.gamuts.net/json/details/1000', function(error, result, body) {
-		res.send(body)
-	})*/
 }
