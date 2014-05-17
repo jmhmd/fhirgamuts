@@ -1,3 +1,7 @@
 div.underline-container {
 	display: inline;
 }
+
+.tab-pane {
+	padding-top: 20px;
+}

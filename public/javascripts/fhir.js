@@ -10,7 +10,7 @@ $(document).ready(function() {
 
 		e.preventDefault()
 
-		$('#submitReport').removeClass('disabled')
+		$('.submitReport').removeClass('disabled')
 
 		var reportText = $(e.target).parent().data('report')
 
@@ -22,6 +22,8 @@ $(document).ready(function() {
 
 			var listContainer = $('#patient-list')
 
+			listContainer.empty()
+			
 			_.each(result.entry, function(entry) {
 
 				var id = entry.content.subject.reference,
@@ -31,11 +33,8 @@ $(document).ready(function() {
 
 					var name = result.name[0].family + ', ' + result.name[0].given
 
-					console.log(result)
-
 					var listel = $('<li><a href="#" class="populate-textarea" id="'+result.identifier[0].value+'">' + name + '</a></li>')
 
-					listel.empty()
 
 					listel
 						.data('report', reportText)
