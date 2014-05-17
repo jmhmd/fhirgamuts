@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 		var reportText = $(e.target).parent().data('report')
 
-		$('#inputText').html(reportText)
+		$('.inputText').html(reportText)
 	})
 
 	function getReports(){
@@ -31,7 +31,11 @@ $(document).ready(function() {
 
 					var name = result.name[0].family + ', ' + result.name[0].given
 
+					console.log(result)
+
 					var listel = $('<li><a href="#" class="populate-textarea" id="'+result.identifier[0].value+'">' + name + '</a></li>')
+
+					listel.empty()
 
 					listel
 						.data('report', reportText)

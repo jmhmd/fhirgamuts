@@ -13,12 +13,25 @@ $(document).ready(function() {
 	})
 })
 
-function getDiagnosis() {
-	var textInput = { text : "" }
+function getDiagnosisText() {
+	var textInput = {}
 
-	textInput.text = $('#inputText').html()
+	textInput.text = $('#inputTextarea').val()
 
-	$('#submitReport').addClass('disabled')
+	getDiagnosis(textInput)
+}
+
+function getDiagnosisFHIR() {
+	var textInput = {}
+
+	textInput.text = $('.inputText').html()
+
+	getDiagnosis(textInput)
+}
+
+function getDiagnosis(textInput) {
+	
+	$('.submitReport').addClass('disabled')
 
 	$.post('/api/getGamut', textInput).then(function(result) {
 		var buildOutput = ''
@@ -31,8 +44,6 @@ function getDiagnosis() {
 
 		$('#output').html(buildOutput)
 
-		$('#inputText').html(result.hilitedText)
-
+		$('.inputText').html(result.hilitedText)
 	})
-
 }
