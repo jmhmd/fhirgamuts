@@ -33,6 +33,7 @@ app.get('/', routes.index);
 
 app.post('/api/getGamut', api.getGamut)
 app.post('/api/getTerms', api.getTerms)
+app.post('/api/getYotta', api.getYotta)
 
 // console.log('PORT: ', process.env.PORT)
 

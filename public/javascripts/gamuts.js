@@ -58,6 +58,7 @@ function getDiagnosis(textInput, format) {
 		buildOutput += "</table>"
 
 		$('#output').html(buildOutput)
+		getYotta(result.causes[0].name)
 
 		switch (format){
 			case 'text':

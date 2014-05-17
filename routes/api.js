@@ -124,3 +124,11 @@ exports.getGamut = function(req, res, next) {
 
 	})
 }
+
+exports.getYotta = function(req, res, next) {
+
+	request.get('http://www.yottalook.com/api_images_2_0.php?app_id=4b94305d853d3e7c91ed4774aa428f75&mod=all&q=' + req.body.name + '&cl=10&t=yy', function(error, result, body) {
+		res.send(body)
+	})
+
+}
