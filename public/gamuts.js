@@ -13,8 +13,15 @@ function getDiagnosis() {
 
 console.log(textInput)
 	$.post('/api/getGamut', textInput).then(function(result) {
+		var buildOutput = ''
 
-		output.innerHTML = JSON.stringify(result)
+		buildOutput = "<table>"
+		_.forEach(result, function(term) {
+			buildOutput += "<tr> <td>" + term.name + "</td> <td>" + term.freq + "</tf> </tr>"
+		})
+		buildOutput += "</table>"
+
+		output.innerHTML = buildOutput
 	})
 
 	this.hiliteText = function(terms){
