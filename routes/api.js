@@ -12,14 +12,6 @@ exports.getGamut = function(req, res, next) {
 		gamutTerms = [],
 		causes = []
 
-	request.get({
-			url: 'https://api.gamuts.net/json/search/?q=neck'
-		}, function(e, r, body){
-			body = body.replace(/\\/g, '')
-			console.log(body)
-		})
-
-	return false
 	/*
 	Send report body to annotator to simply match terms
 	 */
@@ -36,9 +28,7 @@ exports.getGamut = function(req, res, next) {
 
 			console.log(text)
 
-			request('https://api.gamuts.net/json/search/?q=' + text, function(error, result, body) {
-
-				body = JSON.parse(body.replace(/\\/g, ""))
+			request.get({url: 'https://api.gamuts.net/json/search/?q=' + text, json:true}, function(error, result, body) {
 
 				if (error) {
 					callback(error)
@@ -49,7 +39,7 @@ exports.getGamut = function(req, res, next) {
 				var urls = _.map(body.response.entity, function(entity) { return entity.url })
 				console.log(body.response.entity)
 
-				gamutTerms.concat(urls)
+				gamutTerms = gamutTerms.concat(urls)
 
 				callback()
 
@@ -70,7 +60,7 @@ exports.getGamut = function(req, res, next) {
 			function gamutDetails(id, callback) {
 
 				request({
-					url: 'https://api.gamuts.net/json/details/' + id,
+					url: id,
 					json: true
 				}, function(error, result, body) {
 
@@ -78,7 +68,7 @@ exports.getGamut = function(req, res, next) {
 						callback(error)
 					}
 
-					// console.log(body.response.entity)
+					console.log('entity: ', body.response.entity)
 					var c = _.filter(_.map(body.response.entity.relations.causes, function(cause) {
 							return cause.frequency === 'common' ? cause.name : false
 						}))
