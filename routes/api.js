@@ -32,14 +32,9 @@ exports.getGamut = function(req, res, next) {
 
 		var newText = hilite.hiliteTerms(result, req.body.text)
 
-		// console.log('terms: ', result)
-		console.log('markup: ', newText)
-
 		for (var i = 0; i < result.length; i++) {
 			radlexTerms.push(result[i].term)
 		}
-
-		console.log('terms: ', radlexTerms)
 
 		/*
 		Take all the matched RadLex terms and search gamuts for them
