@@ -2,7 +2,9 @@
 
 function getYotta(name) {
 
+	var yottaXML
+
 	$.post('/api/getYotta', { name : name }).then(function(result) {
-		console.log(result)
+		yottaXML = result
 	})
 }
