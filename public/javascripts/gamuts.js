@@ -2,7 +2,7 @@
 
 $(document).ready(function() {
 
-	$('#explain').modal({show: true})
+	$('#explain').modal({show: false})
 
 	$('#Text').click(function (e) {
  		 e.preventDefault()
@@ -14,7 +14,8 @@ $(document).ready(function() {
   		$(this).tab('show')
 	})
 
-	var defaultText = 'Impression: \n 1. Splenomegaly \n 2. Portal hypertension \n 3. Hepatomegaly \n 4. Esophageal varices'
+	//var defaultText = 'Impression: \n 1. Splenomegaly \n 2. Portal hypertension \n 3. Hepatomegaly \n 4. Esophageal varices'
+	var defaultText = 'splenomegaly'
 
 	$('#inputTextarea').val(defaultText)
 
@@ -58,7 +59,7 @@ function getDiagnosis(textInput, format) {
 		buildOutput += "</table>"
 
 		$('#output').html(buildOutput)
-		getYotta(result.causes[0].name)
+		//getYotta(result.causes[0].name)
 
 		switch (format){
 			case 'text':
