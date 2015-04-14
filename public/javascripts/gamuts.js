@@ -52,7 +52,7 @@ function getDiagnosis(textInput, format) {
 
 		buildOutput = "<table>"
 		_.forEach(result.causes, function(term) {
-			buildOutput += "<tr> <td>" + number + ". </td> <td>" + term.name + "</td> <td>" + term.freq + "</tf> </tr>"
+			buildOutput += "<tr> <td>" + number + ". </td> <td>" + term.name + "</td> <td>" + term.rank + "</tf> </tr>"
 			number++
 		})
 		buildOutput += "</table>"

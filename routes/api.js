@@ -4,7 +4,10 @@ var request = require('request'),
 	an = require('../annotator'),
 	hilite = require('../hilite'),
 	async = require('async'),
-	_ = require('lodash')
+	_ = require('lodash'),
+	fs = require('fs')
+
+var gamutsEntities = JSON.parse(fs.readFileSync('gamuts/trimmed-result.json', 'utf8'))
 
 exports.getGamut = function(req, res, next) {
 
@@ -79,7 +82,7 @@ exports.getGamut = function(req, res, next) {
 
 						_.forEach(body.response.entity.relations.may_be_caused_by, function(cause) {
 							if(cause.frequency === 'common') {//} || cause.frequency === 'uncommon') {
-								causes.push(cause.name)
+								causes.push(cause)
 							}
 						})
 					}
@@ -93,31 +96,60 @@ exports.getGamut = function(req, res, next) {
 
 				_.forEach(causes, function(cause) {
 					var temp = {
+						id: parseInt(cause.url.split('/').pop(), 10),
 						name : "",
-						freq : 1
+						freq : 1,
+						rank : 0
 					},
 						exists = 0
 
 					if(freqArray.length == 0) {
-						temp.name = cause
+						temp.name = cause.name
 						freqArray.push(temp)
 					}
 					else {
-						exists = _.find(freqArray, function(contains) { return cause == contains.name })
+						exists = _.find(freqArray, function(contains) { return cause.name == contains.name })
 						if(exists) {
 							exists.freq++
 						}
 						else {
-							temp.name = cause
+							temp.name = cause.name
 							freqArray.push(temp)
 						}
 					}
 
 				})
 
-				topThree = _.sortBy(freqArray, function(term) { return -term.freq } )
+				// topThree = _.sortBy(freqArray, function(term) { return -term.freq } )
 
-				res.send({causes: topThree, hilitedText: newText})
+				// console.log('diag array', topThree)
+
+				var ranked = _.map(freqArray, function(entity){
+					var gamutsListing = _.find(gamutsEntities, {id: entity.id})
+					if (gamutsListing){
+						/*
+							Correction algorithm
+						 */
+						var mayCauseLength = gamutsListing.mayCauseLength
+
+						// can't divide by zero, lowest should be one
+						mayCauseLength = mayCauseLength === 0 ? 1 : mayCauseLength
+
+						var rank = parseFloat(entity.freq * (1 / mayCauseLength)).toFixed(4)
+						console.log('rank', rank)
+						entity.rank = rank
+						return entity
+					} else {
+						console.log('** ERR: not found: entity:', entity)
+						return entity
+					}
+				})
+
+				ranked = _.sortBy(ranked, function(term){ return -term.rank })
+
+				console.log('ranked array', ranked)
+
+				res.send({causes: ranked, hilitedText: newText})
 			})
 
 		})
