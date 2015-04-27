@@ -57,6 +57,8 @@ function getDiagnosis(textInput, format) {
 		})
 		buildOutput += "</table>"
 
+		console.log(result)
+
 		$('#output').html(buildOutput)
 		getYotta(result.causes[0].name)
 

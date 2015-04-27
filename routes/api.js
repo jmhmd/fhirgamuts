@@ -52,12 +52,69 @@ exports.getGamut = function(req, res, next) {
 
 				var urls = _.map(body.response.entity, function(entity) { return entity.url })
 
+				_.forEach(body.response.entity, function(term) {
+
+					//Only include terms that match exactly
+					//if(term.name.toUpperCase() === text.toUpperCase()) {
+						gamutTerms = gamutTerms.concat(term.url)
+					//}
+				})
+
+				console.log("Terms: " + gamutTerms.length)
+				callback()
+
+			})
+		}
+
+		/*async.each(radlexTerms, gamutSearch, function(err) {
+			if (err) {
+				console.log(err)
+			}
+
+			/*
+			Take each found gamut term and get details, including "causes"
+			 */
+			/*function gamutDetails(id, callback) {
+
+				request({
+					url: id,
+					json: true
+				}, function(error, result, body) {
+
+					if (error) {
+						callback(error)
+					}
+
+					if(body.response.entity.relations != null && body.response.entity.relations.may_be_caused_by != null) {
+
+						console.log(body.response.entity)
+						_.forEach(body.response.entity.relations.may_be_caused_by, function(cause) {
+							if(cause.frequency === 'common') { //} || cause.frequency === 'uncommon' || cause.frequency === 'unspecified') {
+								causes.push(cause.name)
+							}
+						})
+					}
+
+					callback()
+				})
+			}*/
+
+		/*function gamutSearch(text, callback) {
+
+			request.get({url: 'https://api.gamuts.net/json/search/?q=' + text, json:true}, function(error, result, body) {
+
+				if (error) {
+					callback(error)
+				}
+
+				var urls = _.map(body.response.entity, function(entity) { return entity.url })
+
 				gamutTerms = gamutTerms.concat(urls)
 
 				callback()
 
 			})
-		}
+		}*/
 
 		async.each(radlexTerms, gamutSearch, function(err) {
 			if (err) {
@@ -81,7 +138,7 @@ exports.getGamut = function(req, res, next) {
 					if(body.response.entity.relations != null && body.response.entity.relations.may_be_caused_by != null) {
 
 						_.forEach(body.response.entity.relations.may_be_caused_by, function(cause) {
-							if(cause.frequency === 'common') {//} || cause.frequency === 'uncommon') {
+							if(cause.frequency === 'common') { //} || cause.frequency === 'uncommon' || cause.frequency === 'unspecified') {
 								causes.push(cause)
 							}
 						})
@@ -149,7 +206,7 @@ exports.getGamut = function(req, res, next) {
 
 				console.log('ranked array', ranked)
 
-				res.send({causes: ranked, hilitedText: newText})
+				res.send({causes: ranked, hilitedText: newText, gamuts: gamutTerms})
 			})
 
 		})
