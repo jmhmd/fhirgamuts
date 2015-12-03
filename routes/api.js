@@ -50,7 +50,7 @@ exports.getGamut = function(req, res, next) {
 					callback(error)
 				}
 
-				var urls = _.map(body.response.entity, function(entity) { return entity.url })
+				//var urls = _.map(body.response.entity, function(entity) { return entity.url })
 
 				_.forEach(body.response.entity, function(term) {
 
