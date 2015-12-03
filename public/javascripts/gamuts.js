@@ -51,10 +51,13 @@ function getDiagnosis(textInput, format) {
 		var buildOutput = '', number = 1
 
 		buildOutput = "<table>"
-		_.forEach(result.causes, function(term) {
-			buildOutput += "<tr> <td>" + number + ". </td> <td>" + term.name + "</td> <td>" + term.rank + "</tf> </tr>"
+		//_.forEach(result.causes, function(term) {
+		for( var i=0; i < 5; i++) {
+			//buildOutput += "<tr> <td>" + number + ". </td> <td>" + term.name + "</td> <td>" + term.rank + "</tf> </tr>"
+			buildOutput += "<tr> <td>" + number + ". </td> <td>" + result.causes[i].name + "</tf></tr>"
 			number++
-		})
+		}
+		//})
 		buildOutput += "</table>"
 
 		console.log(result)
