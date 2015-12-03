@@ -4,7 +4,7 @@ var request = require('request'),
 	an = require('../annotator'),
 	hilite = require('../hilite'),
 	async = require('async'),
-	_ = require('lodash'),
+	lodash = require('lodash'),
 	fs = require('fs')
 
 var gamutsEntities = JSON.parse(fs.readFileSync('gamuts/trimmed-result.json', 'utf8'))
@@ -50,7 +50,7 @@ exports.getGamut = function(req, res, next) {
 					callback(error)
 				}
 
-				//var urls = _.map(body.response.entity, function(entity) { return entity.url })
+				var urls = lodash.map(body.response.entity, function(entity) { return entity.url })
 
 				_.forEach(body.response.entity, function(term) {
 
