@@ -7,6 +7,8 @@
     "ejs": ">= 0.0.1",
     "request": "~2.34.0",
     "async": "0.9.0",
-    "lodash": "2.4.1"
+    "lodash": "2.4.1",
+    "jquery": "2.1.4",
+    "fhirclient": "0.1.1"
   }
 }

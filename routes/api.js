@@ -5,13 +5,25 @@ var request = require('request'),
 	hilite = require('../hilite'),
 	async = require('async'),
 	_ = require('lodash'),
-	fs = require('fs')
+	fs = require('fs'),
+	$ = require('jquery')
 
 var gamutsEntities = JSON.parse(fs.readFileSync('gamuts/trimmed-result.json', 'utf8'))
 
 exports.getGamut = function(req, res, next) {
 
-	var radlexTerms = [],
+	request.get({ 
+		url 		: 'https://fhir.hackathon.siim.org/fhir/DiagnosticReport?service=RAD&_format=application/json', 
+		"X-API-KEY" : "siimhacks", 
+		json 		: true }, function(error, result, body) {
+
+		console.log('Error: ' + error)
+		console.log('Result: ' + result)
+		console.log('Body: ' + body)
+		res.send(result)
+	});
+
+	/*var radlexTerms = [],
 		gamutTerms = [],
 		causes = [],
 		freqArray = [],
@@ -20,7 +32,7 @@ exports.getGamut = function(req, res, next) {
 	/*
 	Send report body to annotator to simply match terms
 	 */
-	an.getAnnotations(req.body.text, function(err, result) {
+	//an.getAnnotations(req.body.text, function(err, result) {
 
 		/*
 		result looks like:
@@ -33,7 +45,7 @@ exports.getGamut = function(req, res, next) {
 		  { term: 'DUCT', from: 393, to: 396 } ]
 		 */
 
-		var newText = hilite.hiliteTerms(result, req.body.text)
+	/*	var newText = hilite.hiliteTerms(result, req.body.text)
 
 		for (var i = 0; i < result.length; i++) {
 			radlexTerms.push(result[i].term)
@@ -42,14 +54,14 @@ exports.getGamut = function(req, res, next) {
 		/*
 		Take all the matched RadLex terms and search gamuts for them
 		 */
-		function gamutSearch(text, callback) {
+	/*	function gamutSearch(text, callback) {
 
 			request.get({url: 'https://api.gamuts.net/json/search/?q=' + text, json:true}, function(error, result, body) {
 
 				if (error) {
 					callback(error)
 				}
-console.log(body.response)
+
 				var urls = _.map(body.response.entity, function(entity) { return entity.url })
 
 				_.forEach(body.response.entity, function(term) {
@@ -116,7 +128,7 @@ console.log(body.response)
 			})
 		}*/
 
-		async.each(radlexTerms, gamutSearch, function(err) {
+		/*async.each(radlexTerms, gamutSearch, function(err) {
 			if (err) {
 				console.log(err)
 			}
@@ -124,7 +136,7 @@ console.log(body.response)
 			/*
 			Take each found gamut term and get details, including "causes"
 			 */
-			function gamutDetails(id, callback) {
+		/*	function gamutDetails(id, callback) {
 
 				request({
 					url: id,
@@ -187,7 +199,7 @@ console.log(body.response)
 						/*
 							Correction algorithm
 						 */
-						var mayCauseLength = gamutsListing.mayCauseLength
+		/*				var mayCauseLength = gamutsListing.mayCauseLength
 
 						// can't divide by zero, lowest should be one
 						mayCauseLength = mayCauseLength === 0 ? 1 : mayCauseLength
@@ -211,7 +223,7 @@ console.log(body.response)
 
 		})
 
-	})
+	})*/
 }
 
 exports.getYotta = function(req, res, next) {

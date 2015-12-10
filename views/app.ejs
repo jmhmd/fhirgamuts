@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="/javascripts/fhir.js"></script>
 	<script type="text/javascript" src="/javascripts/gamuts.js"></script>
 	<script type="text/javascript" src="/javascripts/yottalook.js"></script>
+	<script type="text/javascript" src="/javascripts/fhir-client.js"></script>
 
 	<link href="/stylesheets/style.css" rel="stylesheet">
 <head>	
@@ -77,35 +78,6 @@
 		<div id="output"></div>
 	</div>
 
-	<div class="modal fade" id="explain">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        <h4 class="modal-title">Welcome to FHIRGamuts!</h4>
-	      </div>
-	      <div class="modal-body">
-	        <p>
-	        This application parses radiology report text and identifies the RadLex compliant terms.  These terms are then sent to Gamuts.net to identify causative relationships between pathologic findings.  These relationships are rank ordered to give a basic differential diagnosis.
-	        </p>
-			
-			<h5>APIs Used:</h5>
-			<p>
-			<a href="http://hl7.org/implement/standards/fhir/">FHIR</a>: Radiology Reports can be downloaded directly from the EMR through HL7
-			</p>
-			<p>
-			<a href="http://gamuts.net/">Gamuts</a>: Interaction with the radiology gamuts relationships
-			</p>
-			<p>
-			<a href="http://data.bioontology.org/documentation">Bioportal</a>: Determine the recognizable RadLex terms.
-			</p>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
 </body>
 
 </html>

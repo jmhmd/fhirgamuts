@@ -18,7 +18,29 @@ $(document).ready(function() {
 	})
 
 	function getReports(){
-		$.get('http://fhir.hackathon.siim.org/fhir/DiagnosticReport?service=RAD&_format=application/json', function(result) {
+
+		//FHIR.oauth2.ready(function(ssmart){
+    // now do something cool
+
+		var smart = FHIR.client({
+  				serviceUrl: 'https://fhir-open-api.smarthealthit.org',
+  				patientId: '1137192'
+			});
+
+		// Search for the current patient's conditions
+		//smart.patient.api.search({type: 'Condition'});
+
+		// Search for the current patient's prescriptions
+		//smart.patient.api.search({type: 'MedicationOrder'});
+
+		//});
+
+		$.get('https://fhir.hackathon.siim.org/fhir/DiagnosticReport?service=RAD&_format=application/json', 
+			function(result) {
+				console.log(result)
+			});
+
+		/*$.get('https://fhir.hackathon.siim.org/fhir/DiagnosticReport?service=RAD&_format=application/json', function(result) {
 
 			var listContainer = $('#patient-list')
 
@@ -33,7 +55,7 @@ $(document).ready(function() {
 					
 					id = entry.content.subject.reference
 					
-					$.get('http://fhir.hackathon.siim.org/fhir/' + id + '?_format=application/json', function(result) {
+					$.get('https://fhir.hackathon.siim.org/fhir/' + id + '?_format=application/json', function(result) {
 
 						name = result.name[0].family + ', ' + result.name[0].given
 						patientIdentifier = result.identifier[0].value
@@ -56,6 +78,6 @@ $(document).ready(function() {
 						.appendTo(listContainer)
 				}
 			})
-		})
+		})*/
 	}
 })

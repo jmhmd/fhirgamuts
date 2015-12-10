@@ -2,8 +2,6 @@
 
 $(document).ready(function() {
 
-	$('#explain').modal({show: true})
-
 	$('#Text').click(function (e) {
  		 e.preventDefault()
   		$(this).tab('show')
@@ -48,7 +46,10 @@ function getDiagnosis(textInput, format) {
 	}
 
 	$.post('/api/getGamut', textInput).then(function(result) {
-		var buildOutput = '', number = 1
+
+		console.log(result)
+
+		/*var buildOutput = '', number = 1
 
 		buildOutput = "<table>"
 		//_.forEach(result.causes, function(term) {
@@ -71,6 +72,6 @@ function getDiagnosis(textInput, format) {
 				break
 			case 'html':
 				$('.inputText').html(result.hilitedText)
-		}
+		}*/
 	})
 }
